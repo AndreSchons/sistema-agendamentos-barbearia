@@ -31,11 +31,3 @@ build/
 
 ### VS Code ###
 .vscode/
-
-/pom.xml
-/mvnw
-/mvnw.cmd
-/.gitattributes
-/src/main/resources
-/src/test
-/.mvn
