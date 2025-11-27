@@ -87,7 +87,4 @@ public class Barber {
     public void setBarberShop(BarberShop barberShop) {
         this.barberShop = barberShop;
     }
-
-    
-
 }
