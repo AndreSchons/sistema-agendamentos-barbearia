@@ -3,6 +3,7 @@ package com.autumnsoftwares.agendamento.domain.barbershop;
 import java.util.List;
 
 import com.autumnsoftwares.agendamento.domain.barber.Barber;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -33,6 +34,7 @@ public class BarberShop {
     @Column(nullable = false, unique = true)
     private String phone;
 
+    @JsonManagedReference
     @OneToMany(mappedBy = "barberShop")
     private List<Barber> barbers;
 

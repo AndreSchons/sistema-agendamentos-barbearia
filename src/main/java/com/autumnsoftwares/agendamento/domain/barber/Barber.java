@@ -1,5 +1,6 @@
 package com.autumnsoftwares.agendamento.domain.barber;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.autumnsoftwares.agendamento.domain.barber.barber_account.BarberAccount;
 import com.autumnsoftwares.agendamento.domain.barbershop.BarberShop;
 
@@ -9,6 +10,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
@@ -36,7 +38,8 @@ public class Barber {
     @JoinColumn(name = "barber_account_id")
     private BarberAccount account;
 
-    @OneToOne(optional = false)
+    @ManyToOne(optional = false)
+    @JsonBackReference
     @JoinColumn(name = "barber_shop_id")
     private BarberShop barberShop;
 

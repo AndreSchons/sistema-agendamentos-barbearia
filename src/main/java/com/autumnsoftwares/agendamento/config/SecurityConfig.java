@@ -25,7 +25,14 @@ public class SecurityConfig {
         return http.csrf(csrf -> csrf.disable()) // Desabilita CSRF, comum em APIs stateless
                 .sessionManagement(sm -> sm.sessionCreationPolicy(SessionCreationPolicy.STATELESS)) // Define a política de sessão como stateless
                 .authorizeHttpRequests(req -> {
-                    req.requestMatchers(HttpMethod.POST, "/account").permitAll(); // Permite acesso PÚBLICO aos endpoints de criação e login
+                    // Endpoints de autenticação e registro
+                    req.requestMatchers(HttpMethod.POST, "/account", "/accounts/login").permitAll();
+
+                    // Endpoints públicos para criação e visualização
+                    req.requestMatchers("/barber-shop/**").permitAll();
+                    req.requestMatchers("/barber/**").permitAll();
+                    req.requestMatchers("/account/**").permitAll();
+
                     req.anyRequest().authenticated(); // Exige autenticação para QUALQUER outra requisição
                 }).build();
     }
