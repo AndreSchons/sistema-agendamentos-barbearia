@@ -1,0 +1,45 @@
+package com.autumnsoftwares.agendamento.domain.barber;
+
+import java.net.URI;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.util.UriComponentsBuilder;
+
+@RestController
+@RequestMapping("/barber")
+public class BarberController {
+
+    private final BarberService barberService;
+
+    public BarberController(BarberService barberService) {
+        this.barberService = barberService;
+    }
+
+    @PostMapping
+    public ResponseEntity<Barber> createBarber(@RequestBody Barber barber, UriComponentsBuilder uriComponentsBuilder) {
+        Barber createdBarber = barberService.createBarber(barber);
+        URI uri = uriComponentsBuilder.path("barber/{id}")
+                .buildAndExpand(createdBarber.getId())
+                .toUri();
+        return ResponseEntity.created(uri).body(createdBarber);
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<Barber> getBarberById(@PathVariable Integer id) {
+        return barberService.getBarberById(id)
+                .map(barber -> ResponseEntity.ok(barber))
+                .orElse(ResponseEntity.notFound().build());
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteById(@PathVariable Integer id) {
+        barberService.deleteById(id);
+        return ResponseEntity.noContent().build();
+    }
+}

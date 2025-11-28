@@ -1,4 +1,4 @@
-package com.autumnsoftwares.agendamento.domain.barber;
+package com.autumnsoftwares.agendamento.domain.barber.barber_account;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -32,4 +32,30 @@ public class BarberAccount {
         this.email = email;
         this.passwordHash = passwordHash;
     }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public String getPassword() {
+        return passwordHash;
+    }
+
+    public void setPassword(String passwordHash) {
+        this.passwordHash = passwordHash;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    
+
+    
+
+    
 }

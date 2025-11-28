@@ -1,5 +1,6 @@
 package com.autumnsoftwares.agendamento.domain.barber;
 
+import com.autumnsoftwares.agendamento.domain.barber.barber_account.BarberAccount;
 import com.autumnsoftwares.agendamento.domain.barbershop.BarberShop;
 
 import jakarta.persistence.Column;
