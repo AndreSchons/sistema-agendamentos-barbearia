@@ -3,7 +3,6 @@ package com.autumnsoftwares.agendamento.domain.barber;
 import java.util.Optional;
 import org.springframework.stereotype.Service;
 
-
 @Service
 public class BarberService {
     

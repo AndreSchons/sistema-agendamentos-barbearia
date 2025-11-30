@@ -8,6 +8,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 
 @Entity
 @Table(name = "barber_accounts")
@@ -24,6 +25,7 @@ public class BarberAccount {
 
     @NotBlank
     @Column(nullable = false)
+    @Size(min = 8)
     private String passwordHash;
 
     public BarberAccount(){}

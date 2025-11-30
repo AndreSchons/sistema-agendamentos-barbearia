@@ -3,7 +3,6 @@ package com.autumnsoftwares.agendamento.domain.barber;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.autumnsoftwares.agendamento.domain.barber.barber_account.BarberAccount;
 import com.autumnsoftwares.agendamento.domain.barbershop.BarberShop;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;

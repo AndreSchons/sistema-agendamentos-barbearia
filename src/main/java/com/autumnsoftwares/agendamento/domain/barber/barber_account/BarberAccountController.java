@@ -50,7 +50,4 @@ public class BarberAccountController {
         accountService.deleteByEmail(email);
         return ResponseEntity.noContent().build();
     }
-
-
-
 }

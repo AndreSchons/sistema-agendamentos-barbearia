@@ -1,7 +1,6 @@
 package com.autumnsoftwares.agendamento.domain.barber.barber_account;
 
 import java.util.Optional;
-
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -10,7 +9,6 @@ public class BarberAccountService {
     
     private final BarberAccountRepository accountRepository;
     private final PasswordEncoder passwordEncoder;
-
 
     public BarberAccountService(BarberAccountRepository accountRepository, PasswordEncoder passwordEncoder) {
         this.accountRepository = accountRepository;

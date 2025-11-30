@@ -14,7 +14,6 @@ import org.springframework.web.util.UriComponentsBuilder;
 @RestController
 @RequestMapping("/barber")
 public class BarberController {
-
     private final BarberService barberService;
 
     public BarberController(BarberService barberService) {

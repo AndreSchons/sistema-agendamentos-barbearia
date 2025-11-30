@@ -1,7 +1,6 @@
 package com.autumnsoftwares.agendamento.domain.barbershop;
 
 import java.net.URI;
-
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,7 +14,6 @@ import org.springframework.web.util.UriComponentsBuilder;
 @RestController
 @RequestMapping("/barber-shop")
 public class BarberShopController {
-    
     private final BarberShopService barberShopService;
 
     public BarberShopController(BarberShopService barberShopService) {
@@ -50,6 +48,4 @@ public class BarberShopController {
         barberShopService.deleteById(id);
         return ResponseEntity.noContent().build();
     }
-
-
 }

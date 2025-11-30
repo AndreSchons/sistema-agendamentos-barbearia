@@ -1,10 +1,8 @@
 package com.autumnsoftwares.agendamento.domain.barbershop;
 
 import java.util.List;
-
 import com.autumnsoftwares.agendamento.domain.barber.Barber;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
