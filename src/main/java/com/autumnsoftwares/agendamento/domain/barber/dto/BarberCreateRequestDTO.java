@@ -62,7 +62,4 @@ public class BarberCreateRequestDTO {
     public void setPhone(String phone) {
         this.phone = phone;
     }    
-
-    
-
 }
