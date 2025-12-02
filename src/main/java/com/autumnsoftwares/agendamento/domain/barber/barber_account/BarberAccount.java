@@ -39,11 +39,11 @@ public class BarberAccount {
         return email;
     }
 
-    public String getPassword() {
+    public String getPasswordHash() {
         return passwordHash;
     }
 
-    public void setPassword(String passwordHash) {
+    public void setPasswordHash(String passwordHash) {
         this.passwordHash = passwordHash;
     }
 

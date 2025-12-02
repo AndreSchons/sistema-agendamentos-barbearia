@@ -11,6 +11,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import com.autumnsoftwares.agendamento.domain.barber.dto.BarberCreateRequestDTO;
+import com.autumnsoftwares.agendamento.domain.barber.dto.BarberResponseDTO;
+
 @RestController
 @RequestMapping("/barber")
 public class BarberController {
@@ -21,8 +24,8 @@ public class BarberController {
     }
 
     @PostMapping
-    public ResponseEntity<Barber> createBarber(@RequestBody Barber barber, UriComponentsBuilder uriComponentsBuilder) {
-        Barber createdBarber = barberService.createBarber(barber);
+    public ResponseEntity<BarberResponseDTO> createBarber(@RequestBody BarberCreateRequestDTO barberRequest, UriComponentsBuilder uriComponentsBuilder) {
+        BarberResponseDTO createdBarber = barberService.createBarber(barberRequest);
         URI uri = uriComponentsBuilder.path("barber/{id}")
                 .buildAndExpand(createdBarber.getId())
                 .toUri();

@@ -26,12 +26,13 @@ public class SecurityConfig {
                 .sessionManagement(sm -> sm.sessionCreationPolicy(SessionCreationPolicy.STATELESS)) // Define a política de sessão como stateless
                 .authorizeHttpRequests(req -> {
                     // Endpoints de autenticação e registro
-                    req.requestMatchers(HttpMethod.POST, "/account", "/accounts/login").permitAll();
+                    req.requestMatchers(HttpMethod.POST, "/account").permitAll();
 
-                    // Endpoints públicos para criação e visualização
+                    // Endpoints públicos para BarberShop
                     req.requestMatchers("/barber-shop/**").permitAll();
-                    req.requestMatchers("/barber/**").permitAll();
-                    req.requestMatchers("/account/**").permitAll();
+                    // Libera a criação (POST) e a busca (GET) de barbeiros
+                    req.requestMatchers(HttpMethod.POST, "/barber").permitAll();
+                    req.requestMatchers(HttpMethod.POST, "/barber").permitAll();
 
                     req.anyRequest().authenticated(); // Exige autenticação para QUALQUER outra requisição
                 }).build();

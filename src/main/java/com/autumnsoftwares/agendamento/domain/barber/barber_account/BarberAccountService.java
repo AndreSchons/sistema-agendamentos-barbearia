@@ -20,8 +20,8 @@ public class BarberAccountService {
             throw new IllegalStateException("Email already in use: " + barberAccount.getEmail());
         }
 
-        String hashedPassword = passwordEncoder.encode(barberAccount.getPassword());
-        barberAccount.setPassword(hashedPassword);
+        String hashedPassword = passwordEncoder.encode(barberAccount.getPasswordHash());
+        barberAccount.setPasswordHash(hashedPassword);
 
         return accountRepository.save(barberAccount);
     }
