@@ -48,8 +48,8 @@ public class BarberService {
         return barberMapper.toResponseDTO(savedBarber);
     }
 
-    public Optional<Barber> getBarberById(Integer id) {
-        return barberRepository.findById(id);
+    public Optional<BarberResponseDTO> getBarberById(Integer id) {
+        return barberRepository.findById(id).map(barberMapper::toResponseDTO);
     }
 
     public Barber updateById(Integer id, Barber barberDetails) {

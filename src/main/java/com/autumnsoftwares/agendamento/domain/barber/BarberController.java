@@ -33,9 +33,9 @@ public class BarberController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Barber> getBarberById(@PathVariable Integer id) {
+    public ResponseEntity<BarberResponseDTO> getBarberById(@PathVariable Integer id) {
         return barberService.getBarberById(id)
-                .map(barber -> ResponseEntity.ok(barber))
+                .map(barberDTO -> ResponseEntity.ok(barberDTO))
                 .orElse(ResponseEntity.notFound().build());
     }
 

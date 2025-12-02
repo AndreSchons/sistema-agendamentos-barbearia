@@ -1,7 +1,6 @@
 package com.autumnsoftwares.agendamento.mapper;
 
 import org.mapstruct.Mapper;
-
 import com.autumnsoftwares.agendamento.domain.barber.dto.BarberCreateRequestDTO;
 import com.autumnsoftwares.agendamento.domain.barber.Barber;
 import com.autumnsoftwares.agendamento.domain.barber.dto.BarberResponseDTO;
