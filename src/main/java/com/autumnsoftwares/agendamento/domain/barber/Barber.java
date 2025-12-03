@@ -2,6 +2,7 @@ package com.autumnsoftwares.agendamento.domain.barber;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.autumnsoftwares.agendamento.domain.barber.barber_account.BarberAccount;
+import jakarta.persistence.CascadeType;
 import com.autumnsoftwares.agendamento.domain.barbershop.BarberShop;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -10,7 +11,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToOne; // OneToOne é usado para a conta
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
@@ -33,7 +34,7 @@ public class Barber {
     @Size(min = 11, max = 14)
     private String phone;
 
-    @OneToOne(optional = false)
+    @OneToOne(optional = false, cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "barber_account_id")
     private BarberAccount account;
 

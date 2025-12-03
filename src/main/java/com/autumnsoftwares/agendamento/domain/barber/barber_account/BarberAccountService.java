@@ -3,31 +3,43 @@ package com.autumnsoftwares.agendamento.domain.barber.barber_account;
 import java.util.Optional;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import com.autumnsoftwares.agendamento.domain.barber.barber_account.dto.BarberAccountCreateRequestDTO;
+import com.autumnsoftwares.agendamento.domain.barber.barber_account.dto.BarberAccountResponseDTO;
+import com.autumnsoftwares.agendamento.mapper.BarberAccountMapper;
 
 @Service
 public class BarberAccountService {
     
     private final BarberAccountRepository accountRepository;
     private final PasswordEncoder passwordEncoder;
+    private final BarberAccountMapper accountMapper;
 
-    public BarberAccountService(BarberAccountRepository accountRepository, PasswordEncoder passwordEncoder) {
+    public BarberAccountService(BarberAccountRepository accountRepository, PasswordEncoder passwordEncoder, BarberAccountMapper accountMapper) {
         this.accountRepository = accountRepository;
         this.passwordEncoder = passwordEncoder;
+        this.accountMapper = accountMapper;
     }
 
-    public BarberAccount createBarberAccount(BarberAccount barberAccount) {
-        if (accountRepository.findByEmail(barberAccount.getEmail()).isPresent()) {
-            throw new IllegalStateException("Email already in use: " + barberAccount.getEmail());
+    public BarberAccountResponseDTO createBarberAccount(BarberAccountCreateRequestDTO requestDTO) {        
+        BarberAccount savedAccount = createAndReturnEntity(requestDTO.getEmail(), requestDTO.getPassword());
+        return accountMapper.toResponseDTO(savedAccount);
+    }
+
+    // Método para uso interno, como no BarberService
+    public BarberAccount createAndReturnEntity(String email, String password) {
+        if (accountRepository.findByEmail(email).isPresent()) {
+            throw new IllegalStateException("Email already in use: " + email);
         }
-
-        String hashedPassword = passwordEncoder.encode(barberAccount.getPasswordHash());
-        barberAccount.setPasswordHash(hashedPassword);
-
-        return accountRepository.save(barberAccount);
+        BarberAccount newAccount = new BarberAccount();
+        newAccount.setEmail(email);
+        newAccount.setPasswordHash(passwordEncoder.encode(password));
+        return accountRepository.save(newAccount);
     }
 
-    public Optional<BarberAccount> findById(Integer id) {
-        return accountRepository.findById(id);
+
+    public Optional<BarberAccountResponseDTO> findById(Integer id) {
+        return accountRepository.findById(id)
+                .map(accountMapper::toResponseDTO);
     }
 
     public void deleteById(Integer id) {
@@ -37,11 +49,13 @@ public class BarberAccountService {
     }
 
     public void deleteByEmail(String email){
-        Optional<BarberAccount> accountToDelete = this.findByEmail(email);
-        accountRepository.delete(accountToDelete.get());
+        BarberAccount accountToDelete = accountRepository.findByEmail(email)
+                .orElseThrow(() -> new RuntimeException("Account not found with email: " + email));
+        accountRepository.delete(accountToDelete);
     }
 
-    public Optional<BarberAccount> findByEmail(String email) {
-        return accountRepository.findByEmail(email);
+    public Optional<BarberAccountResponseDTO> findByEmail(String email) {
+        return accountRepository.findByEmail(email)
+                .map(accountMapper::toResponseDTO);
     }
 }

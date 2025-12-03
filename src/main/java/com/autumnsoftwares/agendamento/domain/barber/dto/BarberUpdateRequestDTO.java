@@ -33,7 +33,4 @@ public class BarberUpdateRequestDTO {
     public void setPhone(String phone) {
         this.phone = phone;
     }
-
-    
-
 }

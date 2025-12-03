@@ -33,8 +33,7 @@ public class BarberService {
         BarberShop barberShop = barberShopRepository.findById(barberRequestDTO.getBarberShopId())
                 .orElseThrow(() -> new RuntimeException("BarberShop not found with id: " + barberRequestDTO.getBarberShopId()));
 
-        BarberAccount account = new BarberAccount(barberRequestDTO.getEmail(), barberRequestDTO.getPassword());
-        BarberAccount savedAccount = barberAccountService.createBarberAccount(account);
+        BarberAccount savedAccount = barberAccountService.createAndReturnEntity(barberRequestDTO.getEmail(), barberRequestDTO.getPassword());
 
         Barber barberToSave = barberMapper.toEntity(barberRequestDTO);
         barberToSave.setAccount(savedAccount);

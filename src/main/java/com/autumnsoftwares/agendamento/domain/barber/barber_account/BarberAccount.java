@@ -54,4 +54,8 @@ public class BarberAccount {
     public void setId(Integer id) {
         this.id = id;
     }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
 }
