@@ -5,6 +5,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import com.autumnsoftwares.agendamento.domain.barber.barber_account.dto.BarberAccountCreateRequestDTO;
 import com.autumnsoftwares.agendamento.domain.barber.barber_account.dto.BarberAccountResponseDTO;
+import com.autumnsoftwares.agendamento.infra.exception.DataConflictException;
+import com.autumnsoftwares.agendamento.infra.exception.ResourceNotFoundException;
 import com.autumnsoftwares.agendamento.mapper.BarberAccountMapper;
 
 @Service
@@ -28,7 +30,7 @@ public class BarberAccountService {
     // Método para uso interno, como no BarberService
     public BarberAccount createAndReturnEntity(String email, String password) {
         if (accountRepository.findByEmail(email).isPresent()) {
-            throw new IllegalStateException("Email already in use: " + email);
+            throw new DataConflictException("Email already in use: " + email);
         }
         BarberAccount newAccount = new BarberAccount();
         newAccount.setEmail(email);
@@ -44,13 +46,13 @@ public class BarberAccountService {
 
     public void deleteById(Integer id) {
         BarberAccount accountToDelete = accountRepository.findById(id)
-                    .orElseThrow(() -> new RuntimeException("Account not found with id: " + id));
+                    .orElseThrow(() -> new ResourceNotFoundException("Account not found with id: " + id));
         accountRepository.delete(accountToDelete);
     }
 
     public void deleteByEmail(String email){
         BarberAccount accountToDelete = accountRepository.findByEmail(email)
-                .orElseThrow(() -> new RuntimeException("Account not found with email: " + email));
+                .orElseThrow(() -> new ResourceNotFoundException("Account not found with email: " + email));
         accountRepository.delete(accountToDelete);
     }
 
