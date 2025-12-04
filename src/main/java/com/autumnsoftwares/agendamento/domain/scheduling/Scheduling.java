@@ -44,6 +44,7 @@ public class Scheduling {
     private LocalDateTime endTime;
 
     @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
     private SchedulingStatus status;
 
     @Column(nullable = false)
