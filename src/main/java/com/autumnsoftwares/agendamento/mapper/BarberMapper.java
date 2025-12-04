@@ -14,9 +14,15 @@ public interface BarberMapper {
     @Mapping(source = "account.email", target = "email")
     BarberResponseDTO toResponseDTO(Barber barber);
 
+    @Mapping(target = "id", ignore = true)
+    @Mapping(target = "account", ignore = true)
+    @Mapping(target = "barberShop", ignore = true)
     Barber toEntity(BarberCreateRequestDTO requestDTO);
 
     List<BarberResponseDTO> toDTOList(List<Barber> barbers);
 
+    @Mapping(target = "id", ignore = true)
+    @Mapping(target = "account", ignore = true)
+    @Mapping(target = "barberShop", ignore = true)
     Barber toEntity(BarberUpdateRequestDTO updateDTO);
 }

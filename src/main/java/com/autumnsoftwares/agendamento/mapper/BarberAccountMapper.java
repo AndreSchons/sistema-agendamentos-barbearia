@@ -11,6 +11,7 @@ public interface BarberAccountMapper {
 
     BarberAccountResponseDTO toResponseDTO(BarberAccount account);
 
+    @Mapping(target = "id", ignore = true)
     @Mapping(target = "passwordHash", source = "password")
     BarberAccount toEntity(BarberAccountCreateRequestDTO createRequestDTO);
 } 
