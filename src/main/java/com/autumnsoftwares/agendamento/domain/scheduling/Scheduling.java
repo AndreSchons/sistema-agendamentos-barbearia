@@ -2,6 +2,7 @@ package com.autumnsoftwares.agendamento.domain.scheduling;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import com.autumnsoftwares.agendamento.domain.customer.Customer;
 import com.autumnsoftwares.agendamento.domain.barber.Barber;
 import com.autumnsoftwares.agendamento.domain.services.ServiceType;
 
@@ -15,7 +16,6 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
-import jakarta.validation.constraints.NotBlank;
 
 @Entity
 @Table(name = "schedules")
@@ -33,6 +33,10 @@ public class Scheduling {
     @JoinColumn(name = "service_id", nullable = false)
     private ServiceType service;
 
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "customer_id", nullable = false)
+    private Customer customer;
+
     @Column(nullable = false)
     private LocalDateTime startTime;
 
@@ -41,14 +45,6 @@ public class Scheduling {
 
     @Enumerated(EnumType.STRING)
     private SchedulingStatus status;
-
-    @NotBlank
-    @Column(nullable = false)
-    private String customerName;
-
-    @NotBlank
-    @Column(nullable = false)
-    private String customerPhone;
 
     @Column(nullable = false)
     private BigDecimal price;
@@ -59,22 +55,20 @@ public class Scheduling {
         Barber barber,
         ServiceType serviceType,
         LocalDateTime startTime,
-        String customerName,
-        String customerPhone){
+        Customer customer
+        ){
 
         if(barber == null) throw new IllegalArgumentException("Barber cannot be null");
         if(serviceType == null) throw new IllegalArgumentException("ServiceType cannot be null");
-        if(startTime == null || endTime == null) throw new IllegalArgumentException("Start time and end time cannot be null");
+        if(startTime == null) throw new IllegalArgumentException("Start time cannot be null");
         if(startTime.isBefore(LocalDateTime.now())) throw new IllegalArgumentException("Cannot schedule in the past");
-        if(customerName == null || customerName.isBlank()) throw new IllegalArgumentException("Customer name cannot be blank");
-        if(customerPhone == null || customerPhone.isBlank()) throw new IllegalArgumentException("Customer phone cannot be blank");
+        if(customer == null) throw new IllegalArgumentException("Customer cannot be null");
         this.barber = barber;
         this.service = serviceType;
         this.startTime = startTime;
         this.endTime = startTime.plusMinutes(serviceType.getDurationInMinutes());
-        this.customerName = customerName;
-        this.customerPhone = customerPhone;
         this.price = serviceType.getPrice();
+        this.customer = customer;
         this.status = SchedulingStatus.SCHEDULED;
     }
 
@@ -126,27 +120,19 @@ public class Scheduling {
         this.status = status;
     }
 
-    public String getCustomerName() {
-        return customerName;
-    }
-
-    public void setCustomerName(String customerName) {
-        this.customerName = customerName;
-    }
-
-    public String getCustomerPhone() {
-        return customerPhone;
-    }
-
-    public void setCustomerPhone(String customerPhone) {
-        this.customerPhone = customerPhone;
-    }
-
     public BigDecimal getPrice() {
         return price;
     }
 
     public void setPrice(BigDecimal price) {
         this.price = price;
+    }
+
+    public Customer getCustomer() {
+        return customer;
+    }
+
+    public void setCustomer(Customer customer) {
+        this.customer = customer;
     }
 }

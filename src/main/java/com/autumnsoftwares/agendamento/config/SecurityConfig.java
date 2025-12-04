@@ -32,6 +32,7 @@ public class SecurityConfig {
                     // Libera a criação (POST) e a busca (GET) de barbeiros
                     req.requestMatchers(HttpMethod.POST, "/barber").permitAll();
                     req.requestMatchers("/barber/**").permitAll();
+                    req.requestMatchers("/customer/**").permitAll();
                 
 
                     req.anyRequest().authenticated(); // Exige autenticação para QUALQUER outra requisição
