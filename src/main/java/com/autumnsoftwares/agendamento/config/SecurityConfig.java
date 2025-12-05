@@ -33,6 +33,7 @@ public class SecurityConfig {
                     req.requestMatchers(HttpMethod.POST, "/barber").permitAll();
                     req.requestMatchers("/barber/**").permitAll();
                     req.requestMatchers("/customer/**").permitAll();
+                    req.requestMatchers("/services/**").permitAll();
                 
 
                     req.anyRequest().authenticated(); // Exige autenticação para QUALQUER outra requisição
