@@ -3,10 +3,10 @@ package com.autumnsoftwares.agendamento.domain.services;
 import com.autumnsoftwares.agendamento.domain.services.dto.ServiceTypeCreateRequestDTO;
 import com.autumnsoftwares.agendamento.domain.services.dto.ServiceTypeResponseDTO;
 import jakarta.validation.Valid;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
+import org.springframework.web.util.UriComponentsBuilder;
+import java.net.URI;
 import java.util.List;
 
 @RestController
@@ -20,8 +20,12 @@ public class ServiceTypeController {
     }
 
     @PostMapping
-    public ResponseEntity<ServiceTypeResponseDTO> createService(@RequestBody @Valid ServiceTypeCreateRequestDTO createRequestDTO) {
-        return ResponseEntity.status(HttpStatus.CREATED).body(serviceTypeService.createService(createRequestDTO));
+    public ResponseEntity<ServiceTypeResponseDTO> createService(@RequestBody @Valid ServiceTypeCreateRequestDTO createRequestDTO, UriComponentsBuilder uriComponentsBuilder) {
+        ServiceTypeResponseDTO createdService = serviceTypeService.createService(createRequestDTO);
+        URI uri = uriComponentsBuilder.path("/services/{id}")
+            .buildAndExpand(createdService.getId())
+            .toUri();
+        return ResponseEntity.created(uri).body(createdService);
     }
 
     @GetMapping
