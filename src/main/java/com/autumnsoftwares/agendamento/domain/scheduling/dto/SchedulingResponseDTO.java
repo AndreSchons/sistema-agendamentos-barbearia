@@ -6,9 +6,9 @@ import com.autumnsoftwares.agendamento.domain.scheduling.SchedulingStatus;
 
 public class SchedulingResponseDTO {
     private Integer id;
-    private Integer barberId;
-    private Integer serviceId;
-    private Integer customerId;
+    private String barberName;
+    private String serviceTypeName;
+    private String customerName;
     private LocalDateTime startTime;
     private LocalDateTime endTime;
     private SchedulingStatus status;
@@ -17,11 +17,11 @@ public class SchedulingResponseDTO {
     public SchedulingResponseDTO() {
     }
 
-    public SchedulingResponseDTO(Integer id, Integer barberId, Integer serviceId, Integer customerId, LocalDateTime startTime, LocalDateTime endTime, SchedulingStatus status, BigDecimal price) {
+    public SchedulingResponseDTO(Integer id, String barberName, String serviceTypeName, String customerName, LocalDateTime startTime, LocalDateTime endTime, SchedulingStatus status, BigDecimal price) {
         this.id = id;
-        this.barberId = barberId;
-        this.serviceId = serviceId;
-        this.customerId = customerId;
+        this.barberName = barberName;
+        this.serviceTypeName = serviceTypeName;
+        this.customerName = customerName;
         this.startTime = startTime;
         this.endTime = endTime;
         this.status = status;
@@ -36,28 +36,28 @@ public class SchedulingResponseDTO {
         this.id = id;
     }
 
-    public Integer getBarberId() {
-        return barberId;
+    public String getBarberName() {
+        return barberName;
     }
 
-    public void setBarberId(Integer barberId) {
-        this.barberId = barberId;
+    public void setBarberName(String barberName) {
+        this.barberName = barberName;
     }
 
-    public Integer getServiceId() {
-        return serviceId;
+    public String getServiceName() {
+        return serviceTypeName;
     }
 
-    public void setServiceId(Integer serviceId) {
-        this.serviceId = serviceId;
+    public void setServiceName(String serviceTypeName) {
+        this.serviceTypeName = serviceTypeName;
     }
 
-    public Integer getCustomerId() {
-        return customerId;
+    public String getcustomerName() {
+        return customerName;
     }
 
-    public void setCustomerId(Integer customerId) {
-        this.customerId = customerId;
+    public void setcustomerName(String customerName) {
+        this.customerName = customerName;
     }
 
     public LocalDateTime getStartTime() {
