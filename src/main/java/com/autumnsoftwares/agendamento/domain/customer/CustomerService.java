@@ -8,7 +8,9 @@ import com.autumnsoftwares.agendamento.domain.customer.dto.CustomerCreateRequest
 import com.autumnsoftwares.agendamento.domain.customer.dto.CustomerUpdateRequestDTO;
 import com.autumnsoftwares.agendamento.domain.customer.dto.CustomerResponseDTO;
 import com.autumnsoftwares.agendamento.infra.exception.ResourceNotFoundException;
+import com.autumnsoftwares.agendamento.domain.scheduling.dto.SchedulingResponseDTO;
 import com.autumnsoftwares.agendamento.mapper.CustomerMapper;
+import com.autumnsoftwares.agendamento.mapper.SchedulingMapper;
 
 import jakarta.transaction.Transactional;
 
@@ -17,10 +19,12 @@ public class CustomerService {
     
     private final CustomerRepository customerRepository;
     private final CustomerMapper customerMapper;
+    private final SchedulingMapper schedulingMapper;
 
-    public CustomerService(CustomerRepository customerRepository, CustomerMapper customerMapper) {
+    public CustomerService(CustomerRepository customerRepository, CustomerMapper customerMapper, SchedulingMapper schedulingMapper) {
         this.customerRepository = customerRepository;
         this.customerMapper = customerMapper;
+        this.schedulingMapper = schedulingMapper;
     }
 
 
@@ -50,6 +54,15 @@ public class CustomerService {
 
     public Optional<CustomerResponseDTO> findById(Integer id) {
         return customerRepository.findById(id).map(customerMapper::toResponseDTO);
+    }
+
+    public List<SchedulingResponseDTO> getSchedulingsByPhone(String phone) {
+        Customer customer = customerRepository.getByPhone(phone)
+                .orElseThrow(() -> new ResourceNotFoundException("Customer not found with phone: " + phone));
+
+        return customer.getSchedulings().stream()
+                .map(schedulingMapper::toResponseDTO)
+                .toList();
     }
 
     @Transactional

@@ -2,6 +2,9 @@ package com.autumnsoftwares.agendamento.domain.customer;
 
 import java.net.URI;
 import java.util.List;
+
+import com.autumnsoftwares.agendamento.domain.scheduling.Scheduling;
+import com.autumnsoftwares.agendamento.domain.scheduling.dto.SchedulingResponseDTO;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -67,5 +70,12 @@ public class CustomerController {
     public ResponseEntity<CustomerResponseDTO> updateCustomer(@PathVariable Integer id, @RequestBody @Valid CustomerUpdateRequestDTO updateRequestDTO) {
         CustomerResponseDTO updatedCustomer = customerService.updateById(id, updateRequestDTO);
         return ResponseEntity.ok(updatedCustomer);
+    }
+
+    @GetMapping("/search/schedulings")
+    public ResponseEntity<List<SchedulingResponseDTO>> getSchedulingsByPhone(@RequestParam("phone") String phone) {
+        List<SchedulingResponseDTO> schedulings = customerService.getSchedulingsByPhone(phone);
+        return ResponseEntity.ok(schedulings);
+
     }
 }

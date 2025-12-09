@@ -1,16 +1,25 @@
 package com.autumnsoftwares.agendamento.domain.customer;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import com.autumnsoftwares.agendamento.domain.scheduling.Scheduling;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
+import lombok.AllArgsConstructor;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "customers")
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@EqualsAndHashCode(of = "id")
 public class Customer {
 
     @Id
@@ -27,35 +36,11 @@ public class Customer {
     @Column(nullable = false, unique = true)
     private String phone;
 
-    public Customer(){
-    }
+    @OneToMany(mappedBy = "customer", fetch = FetchType.LAZY)
+    private List<Scheduling> schedulings = new ArrayList<>();
 
-    public Customer(String name, String phone){
+    public Customer(String name, String phone) {
         this.name = name;
-        this.phone = phone;
-    }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getPhone() {
-        return phone;
-    }
-
-    public void setPhone(String phone) {
         this.phone = phone;
     }
 }
