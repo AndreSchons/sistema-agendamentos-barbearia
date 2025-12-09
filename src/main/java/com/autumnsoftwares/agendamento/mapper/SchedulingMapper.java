@@ -7,7 +7,7 @@ import com.autumnsoftwares.agendamento.domain.scheduling.Scheduling;
 import com.autumnsoftwares.agendamento.domain.scheduling.dto.SchedulingCreateRequestDTO;
 import com.autumnsoftwares.agendamento.domain.scheduling.dto.SchedulingResponseDTO;
 
-@Mapper(componentModel = "spring")
+@Mapper(componentModel = "spring", uses = {BarberMapper.class, CustomerMapper.class})
 public interface SchedulingMapper {
 
     @Mapping(target = "id", ignore = true)
@@ -18,9 +18,9 @@ public interface SchedulingMapper {
     @Mapping(target = "price", ignore = true)
     Scheduling toEntity(SchedulingCreateRequestDTO schedulingCreateRequestDTO);
 
-    @Mapping(source = "barber.id", target = "barberId")
-    @Mapping(source = "service.id", target = "serviceId")
-    @Mapping(source = "customer.id", target = "customerId")
+    @Mapping(source = "barber.name", target =  "barberName")
+    @Mapping(source = "customer.name", target = "customerName")
+    @Mapping(source = "service.name", target = "serviceName")
     SchedulingResponseDTO toResponseDTO(Scheduling scheduling);    
 
 }
