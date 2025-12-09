@@ -1,5 +1,11 @@
 package com.autumnsoftwares.agendamento.domain.barber.barber_account;
 
+import com.autumnsoftwares.agendamento.domain.barber.barber_account.role.BarberAccountRole;
+import lombok.*;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -10,9 +16,16 @@ import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 
+import java.util.Collection;
+import java.util.List;
+
 @Entity
 @Table(name = "barber_accounts")
-public class BarberAccount {
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@EqualsAndHashCode(of = "id")
+public class BarberAccount implements UserDetails{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -28,34 +41,41 @@ public class BarberAccount {
     @Size(min = 8)
     private String passwordHash;
 
-    public BarberAccount(){}
+    private BarberAccountRole role;
 
-    public BarberAccount(String email, String passwordHash){
-        this.email = email;
-        this.passwordHash = passwordHash;
+    @Override
+    public  Collection<? extends GrantedAuthority> getAuthorities() {
+        if(this.role == BarberAccountRole.ADMIN) return List.of(new SimpleGrantedAuthority("ROLE_ADMIN"),new SimpleGrantedAuthority("ROLE_USER"));
+        else return List.of(new SimpleGrantedAuthority("ROLE_USER"));
     }
 
-    public String getEmail() {
-        return email;
-    }
-
-    public String getPasswordHash() {
+    @Override
+    public String getPassword() {
         return passwordHash;
     }
 
-    public void setPasswordHash(String passwordHash) {
-        this.passwordHash = passwordHash;
+    @Override
+    public  String getUsername() {
+        return email;
     }
 
-    public Integer getId() {
-        return id;
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return true;
     }
 }
