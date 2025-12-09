@@ -30,8 +30,11 @@ public class SecurityConfigurations {
                 .authorizeHttpRequests(authorize -> authorize
                         .requestMatchers(HttpMethod.POST, "/auth/login").permitAll()
                         .requestMatchers(HttpMethod.POST, "auth/register").permitAll()
-                        .requestMatchers(HttpMethod.POST, "/account").hasRole("admin")
                         .requestMatchers("/customer/**").permitAll()
+                        .requestMatchers(HttpMethod.POST, "scheduling").permitAll()
+                        .requestMatchers("barber-shop/**").hasRole("ADMIN")
+                        .requestMatchers("/barber/**").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.POST, "/services/**").hasRole("ADMIN")
                         .anyRequest().authenticated()
                 )
                 .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class)
