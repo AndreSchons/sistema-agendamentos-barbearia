@@ -1,5 +1,6 @@
 package com.autumnsoftwares.agendamento.domain.scheduling;
 
+import lombok.*;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import com.autumnsoftwares.agendamento.domain.customer.Customer;
@@ -19,6 +20,11 @@ import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "schedules")
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@EqualsAndHashCode(of = "id")
 public class Scheduling {
     
     @Id
@@ -50,8 +56,6 @@ public class Scheduling {
     @Column(nullable = false)
     private BigDecimal price;
 
-    public Scheduling(){}
-
     public Scheduling(
         Barber barber,
         ServiceType serviceType,
@@ -71,69 +75,5 @@ public class Scheduling {
         this.price = serviceType.getPrice();
         this.customer = customer;
         this.status = SchedulingStatus.SCHEDULED;
-    }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public Barber getBarber() {
-        return barber;
-    }
-
-    public void setBarber(Barber barber) {
-        this.barber = barber;
-    }
-
-    public ServiceType getService() {
-        return service;
-    }
-
-    public void setService(ServiceType service) {
-        this.service = service;
-    }
-
-    public LocalDateTime getStartTime() {
-        return startTime;
-    }
-
-    public void setStartTime(LocalDateTime startTime) {
-        this.startTime = startTime;
-    }
-
-    public LocalDateTime getEndTime() {
-        return endTime;
-    }
-
-    public void setEndTime(LocalDateTime endTime) {
-        this.endTime = endTime;
-    }
-
-    public SchedulingStatus getStatus() {
-        return status;
-    }
-
-    public void setStatus(SchedulingStatus status) {
-        this.status = status;
-    }
-
-    public BigDecimal getPrice() {
-        return price;
-    }
-
-    public void setPrice(BigDecimal price) {
-        this.price = price;
-    }
-
-    public Customer getCustomer() {
-        return customer;
-    }
-
-    public void setCustomer(Customer customer) {
-        this.customer = customer;
     }
 }

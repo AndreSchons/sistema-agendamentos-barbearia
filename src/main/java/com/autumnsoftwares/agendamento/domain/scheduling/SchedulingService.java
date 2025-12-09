@@ -57,6 +57,7 @@ public class SchedulingService {
                 .orElseThrow(() -> new EntityNotFoundException("Service not found!"));
 
         Scheduling scheduling = new Scheduling(barber, serviceType, schedulingCreateRequestDTO.getStartTime(), customer);
+        customer.getSchedulings().add(scheduling);
 
         Scheduling savedScheduling = schedulingRepository.save(scheduling);
         return schedulingMapper.toResponseDTO(savedScheduling);
