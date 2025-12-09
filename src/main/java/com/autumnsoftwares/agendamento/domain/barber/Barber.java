@@ -1,6 +1,10 @@
 package com.autumnsoftwares.agendamento.domain.barber;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+
+import lombok.*;
+import org.springframework.security.core.userdetails.UserDetails;
+
 import com.autumnsoftwares.agendamento.domain.barber.barber_account.BarberAccount;
 import jakarta.persistence.CascadeType;
 import com.autumnsoftwares.agendamento.domain.barbershop.BarberShop;
@@ -18,7 +22,12 @@ import jakarta.validation.constraints.Size;
 
 @Entity
 @Table(name = "barbers")
-public class Barber {
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@EqualsAndHashCode(of = "id")
+public class Barber{
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -42,53 +51,4 @@ public class Barber {
     @JsonBackReference
     @JoinColumn(name = "barber_shop_id")
     private BarberShop barberShop;
-
-    public  Barber(){}
-
-    public Barber(String name, String phone, BarberAccount account, BarberShop barberShop){
-        this.name = name;
-        this.phone = phone;
-        this.account = account;
-        this.barberShop = barberShop;
-    }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getPhone() {
-        return phone;
-    }
-
-    public void setPhone(String phone) {
-        this.phone = phone;
-    }
-
-    public BarberAccount getAccount() {
-        return account;
-    }
-
-    public void setAccount(BarberAccount account) {
-        this.account = account;
-    }
-
-    public BarberShop getBarberShop() {
-        return barberShop;
-    }
-
-    public void setBarberShop(BarberShop barberShop) {
-        this.barberShop = barberShop;
-    }
 }
