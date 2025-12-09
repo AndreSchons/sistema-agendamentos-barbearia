@@ -1,6 +1,7 @@
 package com.autumnsoftwares.agendamento.domain.scheduling;
 
 import java.time.LocalDateTime;
+import com.autumnsoftwares.agendamento.domain.barber.Barber;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -12,4 +13,16 @@ public interface SchedulingRepository extends JpaRepository<Scheduling, Integer>
 
     @Query("SELECT s FROM Scheduling s WHERE s.endTime < :now AND s.status = 'SCHEDULED'")
     List<Scheduling> findAllPastAndScheduled(LocalDateTime now);
+
+    boolean existsByStartTime(LocalDateTime startTime);
+
+    @Query("""
+            SELECT CASE WHEN COUNT(s) > 0 THEN TRUE ELSE FALSE END
+            FROM Scheduling s
+            WHERE s.barber = :barber
+            AND s.status != 'CANCELLED'
+            AND s.startTime < :endTime AND s.endTime > :startTime
+            """)
+    boolean existsOverlappingSchedule(Barber barber, LocalDateTime startTime, LocalDateTime endTime);
 }
+

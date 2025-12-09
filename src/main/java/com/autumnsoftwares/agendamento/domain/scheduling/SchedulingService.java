@@ -46,18 +46,21 @@ public class SchedulingService {
 
     @Transactional
     public SchedulingResponseDTO createScheduling(SchedulingCreateRequestDTO schedulingCreateRequestDTO) {
-        // Busca as entidades relacionadas a partir dos IDs do DTO
         Customer customer = customerRepository.findById(schedulingCreateRequestDTO.getCustomerId())
                 .orElseThrow(() -> new EntityNotFoundException("Customer not found!"));
 
         Barber barber = barberRepository.findById(schedulingCreateRequestDTO.getBarberId())
                 .orElseThrow(() -> new EntityNotFoundException("Barber not found!"));
- 
+
         ServiceType serviceType = serviceTypeRepository.findById(schedulingCreateRequestDTO.getServiceTypeId())
                 .orElseThrow(() -> new EntityNotFoundException("Service not found!"));
 
         Scheduling scheduling = new Scheduling(barber, serviceType, schedulingCreateRequestDTO.getStartTime(), customer);
         customer.getSchedulings().add(scheduling);
+
+        if(schedulingRepository.existsOverlappingSchedule(barber, scheduling.getStartTime(), scheduling.getEndTime())) {
+            throw new RuntimeException("Time slot is unvailable for this barber");
+        }
 
         Scheduling savedScheduling = schedulingRepository.save(scheduling);
         return schedulingMapper.toResponseDTO(savedScheduling);
