@@ -3,9 +3,14 @@ package com.autumnsoftwares.agendamento.domain.barber;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import lombok.*;
+
+import java.util.List;
+
 import com.autumnsoftwares.agendamento.domain.barber.barber_account.BarberAccount;
 import jakarta.persistence.CascadeType;
 import com.autumnsoftwares.agendamento.domain.barbershop.BarberShop;
+import com.autumnsoftwares.agendamento.domain.scheduling.Scheduling;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -13,6 +18,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
@@ -49,4 +55,7 @@ public class Barber{
     @JsonBackReference
     @JoinColumn(name = "barber_shop_id")
     private BarberShop barberShop;
+
+    @OneToMany(mappedBy = "barber")
+    private List<Scheduling> schedulings;
 }
