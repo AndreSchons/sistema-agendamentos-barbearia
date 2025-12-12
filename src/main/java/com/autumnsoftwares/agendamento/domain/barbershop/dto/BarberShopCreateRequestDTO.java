@@ -1,7 +1,15 @@
 package com.autumnsoftwares.agendamento.domain.barbershop.dto;
 
-import jakarta.validation.constraints.NotBlank;
+import java.time.LocalTime;
 
+import jakarta.validation.constraints.NotBlank;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.Setter;
+
+@AllArgsConstructor
+@Getter
+@Setter
 public class BarberShopCreateRequestDTO {
     
     @NotBlank
@@ -13,35 +21,7 @@ public class BarberShopCreateRequestDTO {
     @NotBlank
     private String phone;
 
-    public BarberShopCreateRequestDTO(String address, String name, String phone) {
-        this.address = address;
-        this.name = name;
-        this.phone = phone;
-    }
+    private LocalTime startTime;
 
-    public String getAddress() {
-        return address;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getPhone() {
-        return phone;
-    }
-
-    public void setPhone(String phone) {
-        this.phone = phone;
-    }
-
-    
+    private LocalTime endTime;
 }
