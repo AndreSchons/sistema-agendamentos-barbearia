@@ -1,9 +1,10 @@
-package com.autumnsoftwares.agendamento.mapper;
+package com.autumnsoftwares.agendamento.domain.scheduling;
 
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
-import com.autumnsoftwares.agendamento.domain.scheduling.Scheduling;
+import com.autumnsoftwares.agendamento.domain.barber.BarberMapper;
+import com.autumnsoftwares.agendamento.domain.customer.CustomerMapper;
 import com.autumnsoftwares.agendamento.domain.scheduling.dto.SchedulingCreateRequestDTO;
 import com.autumnsoftwares.agendamento.domain.scheduling.dto.SchedulingResponseDTO;
 

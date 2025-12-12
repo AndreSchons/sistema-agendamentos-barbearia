@@ -8,7 +8,6 @@ import com.autumnsoftwares.agendamento.domain.barbershop.dto.BarberShopCreateReq
 import com.autumnsoftwares.agendamento.domain.barbershop.dto.BarberShopResponseDTO;
 import com.autumnsoftwares.agendamento.domain.barbershop.dto.BarberShopUpdateRequestDTO;
 import com.autumnsoftwares.agendamento.infra.exception.ResourceNotFoundException;
-import com.autumnsoftwares.agendamento.mapper.BarberShopMapper;
 
 @Service
 public class BarberShopService {

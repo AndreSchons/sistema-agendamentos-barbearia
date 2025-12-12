@@ -3,7 +3,6 @@ package com.autumnsoftwares.agendamento.domain.services_type;
 import com.autumnsoftwares.agendamento.domain.services_type.dto.ServiceTypeCreateRequestDTO;
 import com.autumnsoftwares.agendamento.domain.services_type.dto.ServiceTypeResponseDTO;
 import com.autumnsoftwares.agendamento.infra.exception.ResourceNotFoundException;
-import com.autumnsoftwares.agendamento.mapper.ServiceTypeMapper;
 
 import org.springframework.stereotype.Service;
 

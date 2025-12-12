@@ -16,7 +16,7 @@ import com.autumnsoftwares.agendamento.domain.scheduling.dto.SchedulingCreateReq
 import com.autumnsoftwares.agendamento.domain.scheduling.dto.SchedulingResponseDTO;
 import com.autumnsoftwares.agendamento.domain.services_type.ServiceType;
 import com.autumnsoftwares.agendamento.domain.services_type.ServiceTypeRepository;
-import com.autumnsoftwares.agendamento.mapper.SchedulingMapper;
+
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 

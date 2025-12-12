@@ -1,9 +1,8 @@
-package com.autumnsoftwares.agendamento.mapper;
+package com.autumnsoftwares.agendamento.domain.customer;
 
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
-import com.autumnsoftwares.agendamento.domain.customer.Customer;
 import com.autumnsoftwares.agendamento.domain.customer.dto.CustomerCreateRequestDTO;
 import com.autumnsoftwares.agendamento.domain.customer.dto.CustomerResponseDTO;
 

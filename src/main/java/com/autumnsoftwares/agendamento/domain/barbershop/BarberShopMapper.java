@@ -1,10 +1,10 @@
-package com.autumnsoftwares.agendamento.mapper;
+package com.autumnsoftwares.agendamento.domain.barbershop;
 
 import java.util.List;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
-import com.autumnsoftwares.agendamento.domain.barbershop.BarberShop;
+import com.autumnsoftwares.agendamento.domain.barber.BarberMapper;
 import com.autumnsoftwares.agendamento.domain.barbershop.dto.BarberShopCreateRequestDTO;
 import com.autumnsoftwares.agendamento.domain.barbershop.dto.BarberShopResponseDTO;
 

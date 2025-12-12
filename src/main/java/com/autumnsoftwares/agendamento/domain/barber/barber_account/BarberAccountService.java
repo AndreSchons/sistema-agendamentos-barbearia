@@ -7,7 +7,6 @@ import com.autumnsoftwares.agendamento.domain.barber.barber_account.dto.BarberAc
 import com.autumnsoftwares.agendamento.domain.barber.barber_account.dto.BarberAccountResponseDTO;
 import com.autumnsoftwares.agendamento.infra.exception.DataConflictException;
 import com.autumnsoftwares.agendamento.infra.exception.ResourceNotFoundException;
-import com.autumnsoftwares.agendamento.mapper.BarberAccountMapper;
 
 @Service
 public class BarberAccountService {

@@ -8,9 +8,8 @@ import com.autumnsoftwares.agendamento.domain.customer.dto.CustomerCreateRequest
 import com.autumnsoftwares.agendamento.domain.customer.dto.CustomerUpdateRequestDTO;
 import com.autumnsoftwares.agendamento.domain.customer.dto.CustomerResponseDTO;
 import com.autumnsoftwares.agendamento.infra.exception.ResourceNotFoundException;
+import com.autumnsoftwares.agendamento.domain.scheduling.SchedulingMapper;
 import com.autumnsoftwares.agendamento.domain.scheduling.dto.SchedulingResponseDTO;
-import com.autumnsoftwares.agendamento.mapper.CustomerMapper;
-import com.autumnsoftwares.agendamento.mapper.SchedulingMapper;
 
 import jakarta.transaction.Transactional;
 

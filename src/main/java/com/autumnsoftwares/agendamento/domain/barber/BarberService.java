@@ -11,7 +11,6 @@ import com.autumnsoftwares.agendamento.domain.barber.dto.BarberUpdateRequestDTO;
 import com.autumnsoftwares.agendamento.domain.barbershop.BarberShop;
 import com.autumnsoftwares.agendamento.domain.barbershop.BarberShopRepository;
 import com.autumnsoftwares.agendamento.infra.exception.ResourceNotFoundException;
-import com.autumnsoftwares.agendamento.mapper.BarberMapper;
 
 @Service
 public class BarberService {
