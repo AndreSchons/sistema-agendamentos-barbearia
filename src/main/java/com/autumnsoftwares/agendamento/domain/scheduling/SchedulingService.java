@@ -55,12 +55,8 @@ public class SchedulingService {
         ServiceType serviceType = serviceTypeRepository.findById(schedulingCreateRequestDTO.getServiceTypeId())
                 .orElseThrow(() -> new EntityNotFoundException("Service not found!"));
 
-        Scheduling scheduling = new Scheduling(barber, serviceType, schedulingCreateRequestDTO.getStartTime(), customer);
+        Scheduling scheduling = new Scheduling(barber, serviceType, customer, schedulingCreateRequestDTO.getStartTime());
         customer.getSchedulings().add(scheduling);
-
-        if(schedulingRepository.existsOverlappingSchedule(barber, scheduling.getStartTime(), scheduling.getEndTime())) {
-            throw new RuntimeException("Time slot is unvailable for this barber");
-        }
 
         Scheduling savedScheduling = schedulingRepository.save(scheduling);
         return schedulingMapper.toResponseDTO(savedScheduling);

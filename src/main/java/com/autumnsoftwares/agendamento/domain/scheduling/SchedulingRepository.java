@@ -24,5 +24,6 @@ public interface SchedulingRepository extends JpaRepository<Scheduling, Integer>
             AND s.startTime < :endTime AND s.endTime > :startTime
             """)
     boolean existsOverlappingSchedule(Barber barber, LocalDateTime startTime, LocalDateTime endTime);
-}
 
+    List<Scheduling> findByBarberAndStartTimeBetween(Barber barber, LocalDateTime dayStart, LocalDateTime dayEnd);
+}
