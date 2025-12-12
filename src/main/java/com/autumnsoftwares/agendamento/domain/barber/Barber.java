@@ -22,10 +22,11 @@ import jakarta.validation.constraints.Size;
 
 @Entity
 @Table(name = "barbers")
-@Data
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(of = "id")
+@Getter
+@Setter
 public class Barber{
     
     @Id

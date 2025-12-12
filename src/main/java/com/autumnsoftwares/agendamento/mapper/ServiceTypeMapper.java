@@ -1,8 +1,8 @@
 package com.autumnsoftwares.agendamento.mapper;
 
-import com.autumnsoftwares.agendamento.domain.services.ServiceType;
-import com.autumnsoftwares.agendamento.domain.services.dto.ServiceTypeCreateRequestDTO;
-import com.autumnsoftwares.agendamento.domain.services.dto.ServiceTypeResponseDTO;
+import com.autumnsoftwares.agendamento.domain.services_type.ServiceType;
+import com.autumnsoftwares.agendamento.domain.services_type.dto.ServiceTypeCreateRequestDTO;
+import com.autumnsoftwares.agendamento.domain.services_type.dto.ServiceTypeResponseDTO;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 

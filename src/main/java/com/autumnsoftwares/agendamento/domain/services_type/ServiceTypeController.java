@@ -1,7 +1,7 @@
-package com.autumnsoftwares.agendamento.domain.services;
+package com.autumnsoftwares.agendamento.domain.services_type;
 
-import com.autumnsoftwares.agendamento.domain.services.dto.ServiceTypeCreateRequestDTO;
-import com.autumnsoftwares.agendamento.domain.services.dto.ServiceTypeResponseDTO;
+import com.autumnsoftwares.agendamento.domain.services_type.dto.ServiceTypeCreateRequestDTO;
+import com.autumnsoftwares.agendamento.domain.services_type.dto.ServiceTypeResponseDTO;
 import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

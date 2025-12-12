@@ -5,7 +5,7 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import com.autumnsoftwares.agendamento.domain.customer.Customer;
 import com.autumnsoftwares.agendamento.domain.barber.Barber;
-import com.autumnsoftwares.agendamento.domain.services.ServiceType;
+import com.autumnsoftwares.agendamento.domain.services_type.ServiceType;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

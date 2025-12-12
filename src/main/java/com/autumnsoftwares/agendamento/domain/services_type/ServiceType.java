@@ -1,4 +1,4 @@
-package com.autumnsoftwares.agendamento.domain.services;
+package com.autumnsoftwares.agendamento.domain.services_type;
 
 import java.math.BigDecimal;
 
@@ -10,9 +10,16 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Entity
 @Table(name = "services_types")
+@NoArgsConstructor
+@Getter
+@Setter
 public class ServiceType {
     
     @Id
@@ -33,41 +40,12 @@ public class ServiceType {
 
     @NotNull
     @Column(nullable = false)
-    private Integer durationInMinutes; 
+    private Integer durationInMinutes;
 
-    public Integer getId() {
-        return id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public BigDecimal getPrice() {
-        return price;
-    }
-
-    public Integer getDurationInMinutes() {
-        return durationInMinutes;
-    }
-
-    public void setName(String name) {
+    public ServiceType(String name, String description, BigDecimal price, Integer durationInMinutes){
         this.name = name;
-    }
-
-    public void setPrice(BigDecimal price) {
-        this.price = price;
-    }
-
-    public void setDescription(String description) {
         this.description = description;
-    }
-
-    public void setDurationInMinutes(Integer durationInMinutes) {
+        this.price = price;
         this.durationInMinutes = durationInMinutes;
     }
 }

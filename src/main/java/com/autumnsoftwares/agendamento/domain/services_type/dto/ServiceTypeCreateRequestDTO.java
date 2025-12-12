@@ -1,4 +1,4 @@
-package com.autumnsoftwares.agendamento.domain.services.dto;
+package com.autumnsoftwares.agendamento.domain.services_type.dto;
 
 import java.math.BigDecimal;
 
