@@ -3,8 +3,6 @@ package com.autumnsoftwares.agendamento.domain.barber;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import lombok.*;
-import org.springframework.security.core.userdetails.UserDetails;
-
 import com.autumnsoftwares.agendamento.domain.barber.barber_account.BarberAccount;
 import jakarta.persistence.CascadeType;
 import com.autumnsoftwares.agendamento.domain.barbershop.BarberShop;

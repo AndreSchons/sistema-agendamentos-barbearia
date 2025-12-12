@@ -3,7 +3,6 @@ package com.autumnsoftwares.agendamento.domain.customer;
 import java.net.URI;
 import java.util.List;
 
-import com.autumnsoftwares.agendamento.domain.scheduling.Scheduling;
 import com.autumnsoftwares.agendamento.domain.scheduling.dto.SchedulingResponseDTO;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;

@@ -1,6 +1,5 @@
 package com.autumnsoftwares.agendamento.infra.security;
 
-import org.apache.catalina.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

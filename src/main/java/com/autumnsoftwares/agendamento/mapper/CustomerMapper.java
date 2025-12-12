@@ -12,6 +12,7 @@ public interface CustomerMapper {
 
     
     @Mapping(target = "id", ignore = true)
+    @Mapping(target = "schedulings", ignore = true)
     Customer toEntity(CustomerCreateRequestDTO customerCreateRequestDTO);
     
     CustomerResponseDTO toResponseDTO(Customer customer);

@@ -2,7 +2,6 @@ package com.autumnsoftwares.agendamento.infra.security;
 
 import com.autumnsoftwares.agendamento.domain.barber.barber_account.BarberAccount;
 import com.autumnsoftwares.agendamento.domain.barber.barber_account.BarberAccountRepository;
-import com.autumnsoftwares.agendamento.domain.barber.barber_account.dto.BarberAccountCreateRequestDTO;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -28,7 +27,7 @@ public class AuthenticationController {
     private TokenService tokenService;
 
     @PostMapping("/login")
-    public ResponseEntity login(@RequestBody @Valid BarberAccount barberAccount){
+    public ResponseEntity<String> login(@RequestBody @Valid BarberAccount barberAccount){
         var accountPassword = new UsernamePasswordAuthenticationToken(barberAccount.getEmail(), barberAccount.getPassword());
         var auth = this.authenticationManager.authenticate(accountPassword);
         var token = tokenService.generateToken((BarberAccount) auth.getPrincipal());
@@ -37,7 +36,7 @@ public class AuthenticationController {
     }
 
     @PostMapping("/register")
-    public ResponseEntity register(@RequestBody @Valid BarberAccount barberAccount) {
+    public ResponseEntity<Void> register(@RequestBody @Valid BarberAccount barberAccount) {
         if(this.accountRepository.findByEmail(barberAccount.getEmail()) == null) return ResponseEntity.badRequest().build();
 
         String encryptedPassword = new BCryptPasswordEncoder().encode(barberAccount.getPassword());
