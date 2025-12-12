@@ -1,5 +1,6 @@
 package com.autumnsoftwares.agendamento.domain.barbershop;
 
+import java.time.LocalTime;
 import java.util.List;
 import com.autumnsoftwares.agendamento.domain.barber.Barber;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
@@ -11,6 +12,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -37,6 +39,14 @@ public class BarberShop {
     @NotBlank
     @Column(nullable = false, unique = true)
     private String phone;
+
+    @NotNull
+    @Column(name = "start_time", nullable = false)
+    private LocalTime startTime;
+
+    @NotNull
+    @Column(name = "end_time", nullable = false)
+    private LocalTime endTime;
 
     @JsonManagedReference
     @OneToMany(mappedBy = "barberShop")
