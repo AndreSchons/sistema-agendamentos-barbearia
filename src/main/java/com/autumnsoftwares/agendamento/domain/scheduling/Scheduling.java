@@ -43,12 +43,6 @@ public class Scheduling {
     @JoinColumn(name = "customer_id", nullable = false)
     private Customer customer;
 
-    @Column(nullable = false)
-    private LocalDateTime startTime;
-
-    @Column(nullable = false)
-    private LocalDateTime endTime;
-
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private SchedulingStatus status;
@@ -56,24 +50,30 @@ public class Scheduling {
     @Column(nullable = false)
     private BigDecimal price;
 
+    @Column(name = "start_time", nullable = false)
+    private LocalDateTime startTime;
+
+    @Column(name = "end_time", nullable = false)
+    private LocalDateTime endTime;
+
     public Scheduling(
         Barber barber,
         ServiceType serviceType,
-        LocalDateTime startTime,
-        Customer customer
+        Customer customer,
+        LocalDateTime startTime
         ){
 
         if(barber == null) throw new IllegalArgumentException("Barber cannot be null");
         if(serviceType == null) throw new IllegalArgumentException("ServiceType cannot be null");
-        if(startTime == null) throw new IllegalArgumentException("Start time cannot be null");
-        if(startTime.isBefore(LocalDateTime.now())) throw new IllegalArgumentException("Cannot schedule in the past");
         if(customer == null) throw new IllegalArgumentException("Customer cannot be null");
+        if(startTime == null) throw new IllegalArgumentException("StartTime cannot be null");
+
         this.barber = barber;
         this.service = serviceType;
-        this.startTime = startTime;
-        this.endTime = startTime.plusMinutes(serviceType.getDurationInMinutes());
         this.price = serviceType.getPrice();
         this.customer = customer;
         this.status = SchedulingStatus.SCHEDULED;
+        this.startTime = startTime;
+        this.endTime = startTime.plusMinutes(serviceType.getDurationInMinutes());
     }
 }
