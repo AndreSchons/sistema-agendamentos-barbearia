@@ -1,5 +1,6 @@
 package com.autumnsoftwares.agendamento.domain.scheduling;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import com.autumnsoftwares.agendamento.domain.barber.Barber;
 import java.util.List;
@@ -26,4 +27,9 @@ public interface SchedulingRepository extends JpaRepository<Scheduling, Integer>
     boolean existsOverlappingSchedule(Barber barber, LocalDateTime startTime, LocalDateTime endTime);
 
     List<Scheduling> findByBarberAndStartTimeBetween(Barber barber, LocalDateTime dayStart, LocalDateTime dayEnd);
+
+    @Query("""
+            SELECT s FROM Scheduling s WHERE s.barber = :barber AND CAST(s.startTime AS date) = :localDate
+            """)
+    List<Scheduling> findByBarberAndDate(Barber barber, LocalDate localDate);
 }
