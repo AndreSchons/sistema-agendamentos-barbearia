@@ -16,6 +16,7 @@ public interface BarberMapper {
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "account", ignore = true)
     @Mapping(target = "barberShop", ignore = true)
+    @Mapping(target = "schedulings", ignore = true)
     Barber toEntity(BarberCreateRequestDTO requestDTO);
 
     List<BarberResponseDTO> toDTOList(List<Barber> barbers);
@@ -23,5 +24,6 @@ public interface BarberMapper {
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "account", ignore = true)
     @Mapping(target = "barberShop", ignore = true)
+    @Mapping(target = "schedulings", ignore = true)
     Barber toEntity(BarberUpdateRequestDTO updateDTO);
 }

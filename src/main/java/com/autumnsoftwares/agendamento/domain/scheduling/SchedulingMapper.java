@@ -15,9 +15,9 @@ public interface SchedulingMapper {
     @Mapping(target = "barber", ignore = true)
     @Mapping(target = "service", ignore = true)
     @Mapping(target = "customer", ignore = true)
-    @Mapping(target = "endTime", ignore = true)
     @Mapping(target = "price", ignore = true)
     @Mapping(target = "status", ignore = true)
+    @Mapping(target = "endTime", ignore = true)
     Scheduling toEntity(SchedulingCreateRequestDTO schedulingCreateRequestDTO);
 
     @Mapping(source = "barber.name", target =  "barberName")
