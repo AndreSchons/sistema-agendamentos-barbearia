@@ -66,7 +66,7 @@ public class AvailableSlotsService {
                 availableSlots.add(potentialSlot);
             }
             
-            potentialSlot = potentialSlot.plusMinutes(45); // Avança para o próximo slot (ex: de 15 em 15 minutos)
+            potentialSlot = potentialSlot.plusMinutes(serviceType.getDurationInMinutes()); // Avança para o próximo slot (ex: de 15 em 15 minutos)
         }
         return availableSlots;
     }
