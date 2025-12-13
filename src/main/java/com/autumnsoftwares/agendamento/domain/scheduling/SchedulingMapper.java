@@ -4,6 +4,7 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
 import com.autumnsoftwares.agendamento.domain.barber.BarberMapper;
+import java.util.List;
 import com.autumnsoftwares.agendamento.domain.customer.CustomerMapper;
 import com.autumnsoftwares.agendamento.domain.scheduling.dto.SchedulingCreateRequestDTO;
 import com.autumnsoftwares.agendamento.domain.scheduling.dto.SchedulingResponseDTO;
@@ -24,5 +25,7 @@ public interface SchedulingMapper {
     @Mapping(source = "customer.name", target = "customerName")
     @Mapping(source = "service.name", target = "serviceName")
     SchedulingResponseDTO toResponseDTO(Scheduling scheduling);    
+
+    List<SchedulingResponseDTO> toResponseDTOList(List<Scheduling> schedulings);
 
 }
