@@ -1,6 +1,6 @@
 package com.autumnsoftwares.agendamento.domain.barber.dto;
 
-import com.autumnsoftwares.agendamento.domain.barbershop.BarberShop;
+import com.autumnsoftwares.agendamento.domain.barbershop.dto.BarberShopResponseDTO;
 
 public class BarberResponseDTO {
     
@@ -8,9 +8,10 @@ public class BarberResponseDTO {
     private String name;
     private String email;
     private String phone;
-    private BarberShop barberShop;
+    private BarberShopResponseDTO barberShop;
+    
 
-    public BarberResponseDTO(Integer id, String name, String email, String phone, BarberShop barberShop) {
+    public BarberResponseDTO(Integer id, String name, String email, String phone, BarberShopResponseDTO barberShop) {
         this.id = id;
         this.name = name;
         this.email = email;
@@ -22,5 +23,5 @@ public class BarberResponseDTO {
     public String getName() { return name; }
     public String getEmail() { return email; }
     public String getPhone() { return phone; }
-    public BarberShop getBarberShop() {return barberShop;}
+    public BarberShopResponseDTO getBarberShop() {return barberShop;}
 }
