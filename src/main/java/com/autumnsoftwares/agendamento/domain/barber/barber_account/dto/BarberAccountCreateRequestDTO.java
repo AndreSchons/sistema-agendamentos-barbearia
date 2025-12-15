@@ -1,6 +1,5 @@
 package com.autumnsoftwares.agendamento.domain.barber.barber_account.dto;
 
-import com.autumnsoftwares.agendamento.domain.barber.barber_account.role.BarberAccountRole;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
@@ -18,8 +17,6 @@ public class BarberAccountCreateRequestDTO {
     @NotBlank(message = "Password cannot be blank")
     @Size(min = 8, message = "Password must be at least 8 characters long")
     private String password;
-
-    private BarberAccountRole role;
 
     public String getEmail() {
         return email;
