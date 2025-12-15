@@ -11,8 +11,8 @@ public interface BarberAccountMapper {
     BarberAccountResponseDTO toResponseDTO(BarberAccount account);
 
     @Mapping(target = "id", ignore = true)
-    @Mapping(target = "passwordHash", source = "password")
-    @Mapping(target = "role", ignore = true)    
+    @Mapping(target = "passwordHash", ignore = true)
+    @Mapping(target = "role", expression = "java(com.autumnsoftwares.agendamento.domain.barber.barber_account.role.AccountRole.ADMIN)")
     @Mapping(target = "authorities", ignore = true)
     BarberAccount toEntity(BarberAccountCreateRequestDTO createRequestDTO);
 } 
