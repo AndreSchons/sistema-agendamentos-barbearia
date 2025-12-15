@@ -5,6 +5,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import com.autumnsoftwares.agendamento.domain.barber.barber_account.dto.BarberAccountCreateRequestDTO;
 import com.autumnsoftwares.agendamento.domain.barber.barber_account.dto.BarberAccountResponseDTO;
+import com.autumnsoftwares.agendamento.domain.barber.barber_account.role.AccountRole;
 import com.autumnsoftwares.agendamento.infra.exception.DataConflictException;
 import com.autumnsoftwares.agendamento.infra.exception.ResourceNotFoundException;
 
@@ -21,11 +22,16 @@ public class BarberAccountService {
         this.accountMapper = accountMapper;
     }
 
-    public BarberAccountResponseDTO createBarberAccount(BarberAccountCreateRequestDTO requestDTO) {        
-        BarberAccount savedAccount = createAndReturnEntity(requestDTO.getEmail(), requestDTO.getPassword());
+    public BarberAccountResponseDTO createBarberAccount(BarberAccountCreateRequestDTO requestDTO) {
+        if (accountRepository.findByEmail(requestDTO.getEmail()).isPresent()) {
+            throw new DataConflictException("Email already in use: " + requestDTO.getEmail());
+        }
+        BarberAccount newAccount = accountMapper.toEntity(requestDTO);
+        newAccount.setPasswordHash(passwordEncoder.encode(requestDTO.getPassword()));
+        BarberAccount savedAccount = accountRepository.save(newAccount);
         return accountMapper.toResponseDTO(savedAccount);
     }
-
+    
     // Método para uso interno, como no BarberService
     public BarberAccount createAndReturnEntity(String email, String password) {
         if (accountRepository.findByEmail(email).isPresent()) {
@@ -34,6 +40,7 @@ public class BarberAccountService {
         BarberAccount newAccount = new BarberAccount();
         newAccount.setEmail(email);
         newAccount.setPasswordHash(passwordEncoder.encode(password));
+        newAccount.setRole(AccountRole.ADMIN);
         return accountRepository.save(newAccount);
     }
 
