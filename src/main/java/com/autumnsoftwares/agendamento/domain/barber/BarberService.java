@@ -1,9 +1,6 @@
 package com.autumnsoftwares.agendamento.domain.barber;
 
 import org.springframework.transaction.annotation.Transactional;
-
-import java.time.LocalDate;
-import java.util.List;
 import java.util.Optional;
 import org.springframework.stereotype.Service;
 import com.autumnsoftwares.agendamento.domain.barber.barber_account.BarberAccountService;
@@ -13,10 +10,6 @@ import com.autumnsoftwares.agendamento.domain.barber.dto.BarberResponseDTO;
 import com.autumnsoftwares.agendamento.domain.barber.dto.BarberUpdateRequestDTO;
 import com.autumnsoftwares.agendamento.domain.barbershop.BarberShop;
 import com.autumnsoftwares.agendamento.domain.barbershop.BarberShopRepository;
-import com.autumnsoftwares.agendamento.domain.scheduling.Scheduling;
-import com.autumnsoftwares.agendamento.domain.scheduling.SchedulingMapper;
-import com.autumnsoftwares.agendamento.domain.scheduling.SchedulingRepository;
-import com.autumnsoftwares.agendamento.domain.scheduling.dto.SchedulingResponseDTO;
 import com.autumnsoftwares.agendamento.infra.exception.ResourceNotFoundException;
 
 @Service
@@ -26,16 +19,12 @@ public class BarberService {
     private final BarberMapper barberMapper;
     private final BarberShopRepository barberShopRepository;
     private final BarberAccountService barberAccountService;
-    private final SchedulingRepository schedulingRepository;
-    private final SchedulingMapper schedulingMapper;
 
-    public BarberService(BarberRepository barberRepository, BarberMapper barberMapper, BarberShopRepository barberShopRepository, BarberAccountService barberAccountService, SchedulingRepository schedulingRepository, SchedulingMapper schedulingMapper) {
+    public BarberService(BarberRepository barberRepository, BarberMapper barberMapper, BarberShopRepository barberShopRepository, BarberAccountService barberAccountService) {
         this.barberRepository = barberRepository;
         this.barberMapper = barberMapper;
         this.barberShopRepository = barberShopRepository;
         this.barberAccountService = barberAccountService;
-        this.schedulingRepository = schedulingRepository;
-        this.schedulingMapper = schedulingMapper;
     }
 
     @Transactional
@@ -71,12 +60,5 @@ public class BarberService {
         Barber barberToDelete = barberRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Barber not found with id: " + id));
         barberRepository.delete(barberToDelete);
-    }
-
-    public List<SchedulingResponseDTO> getSchedulings(Integer barberId, LocalDate localDate) {
-        Barber barber = barberRepository.findById(barberId)
-                .orElseThrow(() -> new ResourceNotFoundException("Barber not found with id: " + barberId));
-        List<Scheduling> schedulings = schedulingRepository.findByBarberAndDate(barber, localDate);
-        return schedulingMapper.toResponseDTOList(schedulings);
     }
 }
