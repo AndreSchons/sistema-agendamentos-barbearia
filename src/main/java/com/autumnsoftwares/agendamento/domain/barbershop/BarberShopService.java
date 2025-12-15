@@ -13,6 +13,7 @@ import com.autumnsoftwares.agendamento.infra.exception.ResourceNotFoundException
 public class BarberShopService {
 
     private final BarberShopRepository barberShopRepository;
+    
     private final BarberShopMapper barberShopMapper;
 
     public BarberShopService(BarberShopRepository barberShopRepository, BarberShopMapper barberShopMapper){

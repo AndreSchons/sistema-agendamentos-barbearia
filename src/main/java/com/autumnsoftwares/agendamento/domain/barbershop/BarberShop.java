@@ -52,9 +52,11 @@ public class BarberShop {
     @OneToMany(mappedBy = "barberShop")
     private List<Barber> barbers;
 
-    public BarberShop(String address, String name, String phone){
+    public BarberShop(String address, String name, String phone, LocalTime starTime, LocalTime endTime){
         this.address = address;
         this.name = name;
         this.phone = phone;
+        this.startTime = starTime;
+        this.endTime = endTime;
     }
 }
