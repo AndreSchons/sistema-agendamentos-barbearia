@@ -1,6 +1,6 @@
 package com.autumnsoftwares.agendamento.domain.barber.barber_account;
 
-import com.autumnsoftwares.agendamento.domain.barber.barber_account.role.BarberAccountRole;
+import com.autumnsoftwares.agendamento.domain.barber.barber_account.role.AccountRole;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
@@ -37,17 +37,17 @@ public class BarberAccount implements UserDetails{
     private String passwordHash;
 
     @Enumerated(EnumType.STRING)
-    private BarberAccountRole role;
+    private AccountRole role;
 
-    public BarberAccount(String email, String passwordHash, BarberAccountRole role) {
+    public BarberAccount(String email, String passwordHash) {
         this.email = email;
         this.passwordHash = passwordHash;
-        this.role = role;
+        this.role = AccountRole.ADMIN;
     }
 
     @Override
     public  Collection<? extends GrantedAuthority> getAuthorities() {
-        if(this.role == BarberAccountRole.ADMIN) return List.of(new SimpleGrantedAuthority("ROLE_ADMIN"),new SimpleGrantedAuthority("ROLE_USER"));
+        if(this.role == AccountRole.ADMIN) return List.of(new SimpleGrantedAuthority("ROLE_ADMIN"),new SimpleGrantedAuthority("ROLE_USER"));
         else return List.of(new SimpleGrantedAuthority("ROLE_USER"));
     }
 
