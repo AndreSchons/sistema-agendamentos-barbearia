@@ -52,7 +52,7 @@ public class Barber{
     @JoinColumn(name = "barber_account_id")
     private BarberAccount account;
 
-    @ManyToOne(optional = false)
+    @ManyToOne
     @JsonBackReference
     @JoinColumn(name = "barber_shop_id")
     private BarberShop barberShop;
