@@ -29,14 +29,15 @@ public class BarberService {
 
     @Transactional
     public BarberResponseDTO createBarber(BarberCreateRequestDTO barberRequestDTO) {
-        BarberShop barberShop = barberShopRepository.findById(barberRequestDTO.getBarberShopId())
-                .orElseThrow(() -> new ResourceNotFoundException("BarberShop not found with id: " + barberRequestDTO.getBarberShopId()));
-
         BarberAccount savedAccount = barberAccountService.createAndReturnEntity(barberRequestDTO.getEmail(), barberRequestDTO.getPassword());
-
         Barber barberToSave = barberMapper.toEntity(barberRequestDTO);
         barberToSave.setAccount(savedAccount);
-        barberToSave.setBarberShop(barberShop);
+
+        if (barberRequestDTO.getBarberShopId() != null) {
+            BarberShop barberShop = barberShopRepository.findById(barberRequestDTO.getBarberShopId())
+                    .orElseThrow(() -> new ResourceNotFoundException("BarberShop not found with id: " + barberRequestDTO.getBarberShopId()));
+            barberToSave.setBarberShop(barberShop);
+        }
 
         Barber savedBarber = barberRepository.save(barberToSave);
         return barberMapper.toResponseDTO(savedBarber);
@@ -60,5 +61,15 @@ public class BarberService {
         Barber barberToDelete = barberRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Barber not found with id: " + id));
         barberRepository.delete(barberToDelete);
+    }
+
+
+    public void setBarberShop(Integer barberShopId, Integer barberId) {
+        BarberShop existingBarberShop = barberShopRepository.findById(barberShopId)
+                    .orElseThrow(() -> new ResourceNotFoundException("BarberShop not found with id: " + barberShopId));
+        Barber existingBarber = barberRepository.findById(barberId)
+                    .orElseThrow(() -> new ResourceNotFoundException("Barber not found with id: " + barberId));
+        existingBarber.setBarberShop(existingBarberShop);
+        barberRepository.save(existingBarber);
     }
 }
