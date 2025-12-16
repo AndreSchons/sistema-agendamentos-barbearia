@@ -2,7 +2,6 @@ package com.autumnsoftwares.agendamento.domain.barber.dto;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
 public class BarberCreateRequestDTO {
@@ -23,7 +22,6 @@ public class BarberCreateRequestDTO {
     @Size(min = 11, max = 14)
     private String phone;
 
-    @NotNull
     private Integer barberShopId;
  
     public BarberCreateRequestDTO(){}
@@ -34,6 +32,13 @@ public class BarberCreateRequestDTO {
         this.password = password;
         this.phone = phone;
         this.barberShopId = barberShopId;
+    }
+
+    public BarberCreateRequestDTO(String name, String email, String password, String phone){
+        this.name = name;
+        this.email = email;
+        this.password = password;
+        this.phone = phone;
     }
 
     public String getName() {
