@@ -16,6 +16,7 @@ import com.autumnsoftwares.agendamento.domain.scheduling.dto.SchedulingCreateReq
 import com.autumnsoftwares.agendamento.domain.scheduling.dto.SchedulingResponseDTO;
 import com.autumnsoftwares.agendamento.domain.services_type.ServiceType;
 import com.autumnsoftwares.agendamento.domain.services_type.ServiceTypeRepository;
+import com.autumnsoftwares.agendamento.infra.exception.ResourceNotFoundException;
 
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
@@ -55,11 +56,22 @@ public class SchedulingService {
         ServiceType serviceType = serviceTypeRepository.findById(schedulingCreateRequestDTO.getServiceTypeId())
                 .orElseThrow(() -> new EntityNotFoundException("Service not found!"));
 
-        Scheduling scheduling = new Scheduling(barber, serviceType, customer, schedulingCreateRequestDTO.getStartTime());
-        customer.getSchedulings().add(scheduling);
+        boolean available = schedulingRepository.existsOverlappingSchedule(barber, schedulingCreateRequestDTO.getStartTime(), schedulingCreateRequestDTO.getStartTime().plusMinutes(serviceType.getDurationInMinutes()));
+                
+        if(!available){
+            Scheduling scheduling = new Scheduling(barber, serviceType, customer, schedulingCreateRequestDTO.getStartTime());
+            customer.getSchedulings().add(scheduling);            
+            Scheduling savedScheduling = schedulingRepository.save(scheduling);
+            return schedulingMapper.toResponseDTO(savedScheduling);
+        }
+        return null;
+    }
 
-        Scheduling savedScheduling = schedulingRepository.save(scheduling);
-        return schedulingMapper.toResponseDTO(savedScheduling);
+    @Transactional
+    public void cancellScheduling(Integer schedulingId) {
+        Scheduling scheduling = schedulingRepository.findById(schedulingId)
+                .orElseThrow(() -> new ResourceNotFoundException("Scheduling not found with id: " + schedulingId));        
+        scheduling.setStatus(SchedulingStatus.CANCELLED);
     }
 
     public Optional<SchedulingResponseDTO> getSchedulingById(Integer id) {
