@@ -60,7 +60,7 @@ public class AvailableSlotsService {
             LocalDateTime slotEnd = slotStart.plusMinutes(serviceDuration);
 
             boolean isOverlapping = existingSchedules.stream()
-                    .anyMatch(existing -> existing.getStartTime().isBefore(slotEnd) && existing.getEndTime().isAfter(slotStart));
+                    .anyMatch(existing -> existing.getStartTime().isBefore(slotEnd) && existing.getEndTime().isAfter(slotStart) && existing.getStatus() != SchedulingStatus.CANCELLED);
 
             if (!isOverlapping) {
                 availableSlots.add(potentialSlot);
