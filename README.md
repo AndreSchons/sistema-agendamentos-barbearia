@@ -4,8 +4,10 @@ Esta é uma API RESTful desenvolvida em Java com Spring Boot para gerenciar agen
 
 ## ✨ Funcionalidades Principais
 
+*   **Autenticação e Autorização**: Sistema seguro utilizando Spring Security e JSON Web Tokens (JWT).
 *   **Criação de Agendamentos**: Permite agendar um serviço com um barbeiro, cliente e horário específicos.
 *   **Validação de Conflitos**: A API verifica automaticamente se o barbeiro já possui um agendamento no horário solicitado, evitando agendamentos duplicados (*double booking*).
+*   **Consulta de Horários Disponíveis**: Verifica e retorna os horários livres de um barbeiro para um serviço em uma data específica.
 *   **Cancelamento de Agendamentos**: Permite o cancelamento de um agendamento existente.
 *   **Consulta de Agendamentos**: Busca de um agendamento específico pelo seu ID.
 *   **Atualização Automática de Status**: Um processo automatizado (tarefa agendada) roda a cada minuto para marcar os agendamentos que já ocorreram como "Concluídos".
@@ -36,13 +38,40 @@ Esta é uma API RESTful desenvolvida em Java com Spring Boot para gerenciar agen
 
 4.  A API estará disponível em `http://localhost:8080`.
 
-## 📖 Endpoints da API
+## 🔐 Segurança
+
+A API utiliza **Spring Security** para proteger os endpoints. A autenticação é baseada em **JSON Web Tokens (JWT)**.
+
+Para acessar os endpoints protegidos, você deve primeiro se autenticar através do endpoint `/auth/login` para obter um token. Em seguida, inclua este token no cabeçalho `Authorization` de todas as requisições subsequentes.
+
+**Exemplo de Cabeçalho:**
+`Authorization: Bearer <seu-jwt-token>`
+
+##  Endpoints da API
 
 A seguir estão os detalhes dos endpoints disponíveis na API.
 
 ---
 
-### 1. Criar um novo Agendamento
+### 1. Autenticação
+
+Autentica um usuário e retorna um token JWT.
+
+*   **URL**: `/auth/login`
+*   **Método**: `POST`
+*   **Corpo da Requisição (Request Body)**:
+    ```json
+    {
+      "username": "user@email.com",
+      "password": "your_password"
+    }
+    ```
+*   **Resposta de Sucesso (200 OK)**:
+    `{"token": "eyJhbGciOiJIUzI1NiJ9..."}`
+
+---
+
+### 2. Criar um novo Agendamento
 
 Cria um novo agendamento para um cliente com um barbeiro e serviço específicos. O sistema valida se o horário está disponível.
 
@@ -57,6 +86,10 @@ Cria um novo agendamento para um cliente com um barbeiro e serviço específicos
       "serviceTypeId": 2,
       "startTime": "2025-12-20T10:00:00"
     }
+    ```
+*   **Cabeçalho de Autenticação**:
+    ```
+    Authorization: Bearer <seu-jwt-token>
     ```
 
 *   **Resposta de Sucesso (201 Created)**:
@@ -77,7 +110,7 @@ Cria um novo agendamento para um cliente com um barbeiro e serviço específicos
 
 ---
 
-### 2. Cancelar um Agendamento
+### 3. Cancelar um Agendamento
 
 Altera o status de um agendamento existente para `CANCELLED`.
 
@@ -85,12 +118,38 @@ Altera o status de um agendamento existente para `CANCELLED`.
 *   **Método**: `PATCH`
 *   **Parâmetros de URL**:
     *   `id` (obrigatório): O ID do agendamento a ser cancelado.
+*   **Cabeçalho de Autenticação**:
+    ```
+    Authorization: Bearer <seu-jwt-token>
+    ```
 *   **Resposta de Sucesso (204 No Content)**: O corpo da resposta estará vazio, indicando que a operação foi bem-sucedida.
 *   **Resposta de Erro (404 Not Found)**: Retornada se o agendamento com o ID informado não for encontrado.
 
 ---
 
-### 3. Obter Agendamento por ID
+### 4. Obter Horários Disponíveis
+
+Retorna uma lista de horários disponíveis para um barbeiro, em uma data específica e para um determinado tipo de serviço.
+
+*   **URL**: `/available-slots`
+*   **Método**: `GET`
+*   **Parâmetros da Query (Query Params)**:
+    *   `barberId` (obrigatório): ID do barbeiro.
+    *   `serviceTypeId` (obrigatório): ID do tipo de serviço.
+    *   `date` (obrigatório): A data para a consulta (formato: `YYYY-MM-DD`).
+*   **Exemplo de URL**: `/available-slots?barberId=1&serviceTypeId=2&date=2025-12-20`
+*   **Resposta de Sucesso (200 OK)**:
+    ```json
+    [
+        "09:00:00",
+        "09:30:00",
+        "11:00:00"
+    ]
+    ```
+
+---
+
+### 5. Obter Agendamento por ID
 
 Recupera os detalhes de um agendamento específico.
 
@@ -99,6 +158,10 @@ Recupera os detalhes de um agendamento específico.
 *   **Parâmetros de URL**:
     *   `id` (obrigatório): O ID do agendamento.
 *   **Resposta de Sucesso (200 OK)**:
+*   **Cabeçalho de Autenticação**:
+    ```
+    Authorization: Bearer <seu-jwt-token>
+    ```
 
     ```json
     {
