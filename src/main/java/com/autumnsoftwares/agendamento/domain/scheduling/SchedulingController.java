@@ -39,6 +39,12 @@ public class SchedulingController {
         return ResponseEntity.created(uri).body(createdScheduling);
     }
 
+    @PostMapping("/cancell")
+    public ResponseEntity<Void> cancellScheduling(@RequestParam Integer schedulingId) {
+        schedulingService.cancellScheduling(schedulingId);
+        return ResponseEntity.ok().build();
+    }
+
     @GetMapping("/{id}")
     public ResponseEntity<SchedulingResponseDTO> getSchedulingById(@PathVariable Integer id) {
         return schedulingService.getSchedulingById(id)
