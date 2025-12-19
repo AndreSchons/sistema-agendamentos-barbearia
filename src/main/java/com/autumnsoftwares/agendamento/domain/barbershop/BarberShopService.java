@@ -23,9 +23,14 @@ public class BarberShopService {
 
     @Transactional
     public BarberShopResponseDTO createBarberShop(BarberShopCreateRequestDTO barberShopCreateRequestDTO) {
-        BarberShop barberShopToSave = barberShopMapper.toEntity(barberShopCreateRequestDTO);
-        BarberShop savedBarberShop = barberShopRepository.save(barberShopToSave);
-        return barberShopMapper.toResponseDTO(savedBarberShop);
+        if(barberShopRepository.findByName(barberShopCreateRequestDTO.getName()).isEmpty()) {
+            BarberShop barberShopToSave = barberShopMapper.toEntity(barberShopCreateRequestDTO);
+            BarberShop savedBarberShop = barberShopRepository.save(barberShopToSave);
+            return barberShopMapper.toResponseDTO(savedBarberShop);        
+        }
+        else {
+            throw new IllegalArgumentException("This name has been used, put other name!");
+        }
     }  
 
     @Transactional(readOnly = true)
