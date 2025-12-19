@@ -1,10 +1,12 @@
 package com.autumnsoftwares.agendamento.domain.barbershop;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import java.time.LocalTime;
+import java.util.Optional;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -50,9 +52,21 @@ public class BarberShopServiceTest {
     }
 
     @Test
+    @DisplayName("Should throw an exception when barber shop name already exists")
     void testCreateBarberShopFailure() {
+        BarberShopCreateRequestDTO requestDTO = new BarberShopCreateRequestDTO(
+        "Rua teste",
+        "teste",
+        "12345678910",
+        LocalTime.of(8, 0),
+        LocalTime.of(18, 0));
 
+        // Simula que já existe uma barbearia com o mesmo nome
+        when(barberShopRepository.findByName(requestDTO.getName())).thenReturn(Optional.of(new BarberShop()));
+
+        // Verifica se uma exceção é lançada
+        assertThrows(IllegalArgumentException.class, () -> {
+            barberShopService.createBarberShop(requestDTO);
+        });
     }
-
-   
 }
