@@ -1,6 +1,8 @@
 package com.autumnsoftwares.agendamento.infra.security;
 
 import com.autumnsoftwares.agendamento.domain.barber.barber_account.BarberAccount;
+import com.autumnsoftwares.agendamento.infra.security.authDTO.AuthenticationDTO;
+
 // import com.autumnsoftwares.agendamento.domain.barber.barber_account.BarberAccountRepository;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,8 +29,8 @@ public class AuthenticationController {
     private TokenService tokenService;
 
     @PostMapping("/login")
-    public ResponseEntity<String> login(@RequestBody @Valid BarberAccount barberAccount){
-        var accountPassword = new UsernamePasswordAuthenticationToken(barberAccount.getEmail(), barberAccount.getPassword());
+    public ResponseEntity<String> login(@RequestBody @Valid AuthenticationDTO data){
+        var accountPassword = new UsernamePasswordAuthenticationToken(data.email(), data.password());
         var auth = this.authenticationManager.authenticate(accountPassword);
         var token = tokenService.generateToken((BarberAccount) auth.getPrincipal());
 
