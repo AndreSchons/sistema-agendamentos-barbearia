@@ -15,8 +15,13 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.tags.Tag;
+
 @RestController
 @RequestMapping("auth")
+@Tag(name = "authentication controller")
 public class AuthenticationController {
 
     @Autowired
@@ -28,6 +33,10 @@ public class AuthenticationController {
     @Autowired
     private TokenService tokenService;
 
+    @Operation(summary = "Efetuar login", description = "Autentica um usuário e retorna um token JWT")
+    @ApiResponse(responseCode = "200", description = "Login realizado com sucesso")
+    @ApiResponse(responseCode = "403", description = "Credenciais inválidas")
+    @ApiResponse(responseCode = "500", description = "Erro no servidor")
     @PostMapping("/login")
     public ResponseEntity<String> login(@RequestBody @Valid AuthenticationDTO data){
         var accountPassword = new UsernamePasswordAuthenticationToken(data.email(), data.password());
