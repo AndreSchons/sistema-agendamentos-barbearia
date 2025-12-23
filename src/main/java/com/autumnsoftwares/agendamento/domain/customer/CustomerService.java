@@ -78,11 +78,13 @@ public class CustomerService {
 
     @Transactional
     public CustomerResponseDTO updateById(Integer id, CustomerUpdateRequestDTO updateRequestDTO) {
-        Customer existingCustomer = customerRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Customer not found with id: " + id));
-        
-        existingCustomer.setName(updateRequestDTO.getName());
-        existingCustomer.setPhone(updateRequestDTO.getPhone());
-        return customerMapper.toResponseDTO(existingCustomer);
+        Optional<Customer> existingCustomer = customerRepository.findById(id);
+        if(existingCustomer.isEmpty()) {
+            throw new ResourceNotFoundException("Customer not found with id: " + id);
+        }
+        existingCustomer.get().setName(updateRequestDTO.getName());
+        existingCustomer.get().setPhone(updateRequestDTO.getPhone());
+        Customer savedCustomer = customerRepository.save(existingCustomer.get());
+        return customerMapper.toResponseDTO(savedCustomer);
     }
 }
