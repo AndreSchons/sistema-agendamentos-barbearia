@@ -56,6 +56,7 @@ public class BarberShopService {
         return barberShopMapper.toResponseDTO(updatedBarberShop);
     }  
 
+    @Transactional(readOnly = true)
     public Optional<BarberShopResponseDTO> findByName(String name) {
         return barberShopRepository.findByName(name).map(barberShopMapper::toResponseDTO);
     }
