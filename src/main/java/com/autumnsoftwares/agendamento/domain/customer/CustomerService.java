@@ -7,6 +7,7 @@ import java.util.Optional;
 import com.autumnsoftwares.agendamento.domain.customer.dto.CustomerCreateRequestDTO;
 import com.autumnsoftwares.agendamento.domain.customer.dto.CustomerUpdateRequestDTO;
 import com.autumnsoftwares.agendamento.domain.customer.dto.CustomerResponseDTO;
+import com.autumnsoftwares.agendamento.infra.exception.DataConflictException;
 import com.autumnsoftwares.agendamento.infra.exception.ResourceNotFoundException;
 import com.autumnsoftwares.agendamento.domain.scheduling.SchedulingMapper;
 import com.autumnsoftwares.agendamento.domain.scheduling.dto.SchedulingResponseDTO;
@@ -29,6 +30,9 @@ public class CustomerService {
 
     @Transactional
     public CustomerResponseDTO createCustomer(CustomerCreateRequestDTO customerCreateRequestDTO) {
+        if(customerRepository.getByPhone(customerCreateRequestDTO.getPhone()).isPresent()) {
+            throw new DataConflictException("Phone already registered!");
+        }
         Customer customerToSaved = customerMapper.toEntity(customerCreateRequestDTO);
         Customer savedCustomer = customerRepository.save(customerToSaved);
         return customerMapper.toResponseDTO(savedCustomer);
