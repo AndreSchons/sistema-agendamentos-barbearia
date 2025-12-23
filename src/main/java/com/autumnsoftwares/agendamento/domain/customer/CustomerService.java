@@ -56,7 +56,11 @@ public class CustomerService {
     }
 
     public Optional<CustomerResponseDTO> findById(Integer id) {
-        return customerRepository.findById(id).map(customerMapper::toResponseDTO);
+        Optional<Customer> customer = customerRepository.findById(id);
+        if(customer.isEmpty()) {
+            throw new ResourceNotFoundException("Customer not found with id: " + id);
+        }
+        return customer.map((c) -> customerMapper.toResponseDTO(c));
     }
 
     public List<SchedulingResponseDTO> getSchedulingsByPhone(String phone) {
