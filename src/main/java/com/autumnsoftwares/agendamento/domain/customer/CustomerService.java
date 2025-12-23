@@ -39,7 +39,11 @@ public class CustomerService {
     }
 
     public Optional<CustomerResponseDTO> getCustomerByPhone(String phone) {
-        return customerRepository.getByPhone(phone).map(customerMapper::toResponseDTO);
+        Optional<Customer> customer = customerRepository.getByPhone(phone);
+        if(customer.isEmpty()) {
+            throw new ResourceNotFoundException("Customer not found with phone:" + phone);
+        }
+        return customer.map(c -> customerMapper.toResponseDTO(c));
     }
 
     @Transactional
