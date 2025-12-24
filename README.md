@@ -19,6 +19,8 @@ Esta é uma API RESTful desenvolvida em Java com Spring Boot para gerenciar agen
 *   **Spring Data JPA**: Para persistência de dados e comunicação com o banco de dados.
 *   **Maven**: Gerenciador de dependências e build do projeto.
 *   **Banco de Dados**: A aplicação é configurada para se conectar a um banco de dados relacional (ex: H2, PostgreSQL, MySQL).
+*   **Swagger / OpenAPI**: Para documentação viva e interativa da API.
+*   **JUnit 5 & Mockito**: Frameworks utilizados para a criação de testes unitários e mocks.
 
 ## 🚀 Como Executar o Projeto
 
@@ -38,6 +40,16 @@ Esta é uma API RESTful desenvolvida em Java com Spring Boot para gerenciar agen
 
 4.  A API estará disponível em `http://localhost:8080`.
 
+## ✅ Testes Automatizados
+
+A API possui uma cobertura abrangente de **testes unitários** implementados com **JUnit 5** e **Mockito**. Os testes validam as regras de negócio em todas as camadas de serviço, garantindo a confiabilidade do sistema tanto em cenários de sucesso quanto de falha.
+
+Para executar a suíte de testes, utilize o comando:
+
+```bash
+mvn test
+```
+
 ## 🔐 Segurança
 
 A API utiliza **Spring Security** para proteger os endpoints. A autenticação é baseada em **JSON Web Tokens (JWT)**.
@@ -46,6 +58,18 @@ Para acessar os endpoints protegidos, você deve primeiro se autenticar através
 
 **Exemplo de Cabeçalho:**
 `Authorization: Bearer <seu-jwt-token>`
+
+## 📄 Documentação Interativa (Swagger UI)
+
+O projeto integra o **Swagger (OpenAPI)** para fornecer uma documentação detalhada e interativa. Através dele, é possível visualizar todos os endpoints, modelos de dados e testar as requisições em tempo real.
+
+*   **Acesso**: `http://localhost:8080/swagger-ui/index.html`
+*   **Autenticação no Swagger**:
+    Para testar endpoints que exigem segurança:
+    1.  Realize o login no endpoint `/auth/login` para receber seu token JWT.
+    2.  No topo da página do Swagger, clique no botão **Authorize**.
+    3.  Insira o token no campo apropriado (geralmente no formato `Bearer <seu_token>`).
+    4.  Agora você pode executar as requisições protegidas diretamente pela interface.
 
 ##  Endpoints da API
 
