@@ -1,5 +1,8 @@
 package com.autumnsoftwares.agendamento.domain.barber.barber_account.dto;
 
+import lombok.NoArgsConstructor;
+
+@NoArgsConstructor
 public class BarberAccountResponseDTO {
 
     private Integer id;

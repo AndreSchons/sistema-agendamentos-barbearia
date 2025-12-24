@@ -2,6 +2,11 @@ package com.autumnsoftwares.agendamento.domain.barber.dto;
 
 import com.autumnsoftwares.agendamento.domain.barbershop.dto.BarberShopResponseDTO;
 
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+@NoArgsConstructor
+@Setter
 public class BarberResponseDTO {
     
     private Integer id;

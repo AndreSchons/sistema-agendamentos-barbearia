@@ -2,7 +2,9 @@ package com.autumnsoftwares.agendamento.domain.barber.dto;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
+import lombok.NoArgsConstructor;
 
+@NoArgsConstructor
 public class BarberUpdateRequestDTO {
     
     @NotBlank
