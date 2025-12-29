@@ -1,0 +1,7 @@
+services:
+  api:
+    image: andreschons/api-barbearia:1.0
+    ports:
+      - "8080:8080"
+    env_file:
+      - .env
