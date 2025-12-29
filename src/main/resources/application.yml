@@ -1,21 +1,11 @@
 spring:
-    datasource:
-      url: jdbc:postgresql://localhost:5432/agendamentos
-      username: postgres
-      password: 12345678
-      driver-class-name: org.postgresql.Driver
+  application:
+    name: api-barbearia
 
-    jpa:
-        hibernate:
-          ddl-auto: update
-        show-sql: true
-        # properties:
-            # hibernate.format_sql: true
-    
 server:
-    port: 8080
+  port: 8080
 
 api:
-    security:
-        token:
-            secret: ${JWT_SECRET:my-secret-key}
+  security:
+    token:
+      secret: ${JWT_SECRET:my-secret-key}
