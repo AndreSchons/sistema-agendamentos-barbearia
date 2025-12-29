@@ -3,7 +3,7 @@ spring:
     name: api-barbearia
 
 server:
-  port: 8080
+  port: ${PORT:8080}
 
 api:
   security:
